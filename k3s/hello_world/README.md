@@ -41,6 +41,16 @@ kubectl create service nodeport hwapp --tcp=5000:5000
 kubectl get services
 ```
 
+# Inspect the pod logs
+
+```
+kubectl get pods
+export POD_NAME=$(kubectl get pods -o json | jq -r .items[0].metadata.name)
+echo ${POD_NAME}
+kubectl logs ${POD_NAME}
+```
+
+
 # Use port forwarding to check working pod
 
 ```
