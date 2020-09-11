@@ -19,63 +19,38 @@ docker tag helloworld trausch/helloworld
 docker push trausch/helloworld
 ```
 
-# Connect to kubernetes
+# Deploy pod, forward port via service and curl ip:port
 
 ```
 export KUBECONFIG=`pwd`/../../k3s.yaml
 kubectl get nodes
-```
-
-# Deploy pod
-
-```
 kubectl create deployment hwapp --image=trausch/helloworld
 kubectl get deployments
 kubectl describe deployments hwapp
-```
-
-# Deploy service
-
-```
-kubectl create service nodeport hwapp --tcp=5000:5000
+kubectl expose deployments/hwapp --type="NodePort" --port 5000
 kubectl get services
-```
-
-# Inspect the pod logs
-
-```
+export NODE_PORT=$(kubectl get services/hwapp -o json | jq ".spec.ports[0].nodePort")
+IP=$(multipass info master | grep IPv4 | awk '{print $2}')
+curl ${IP}:${NODE_PORT}
 kubectl get pods
 export POD_NAME=$(kubectl get pods -o json | jq -r .items[0].metadata.name)
-echo ${POD_NAME}
 kubectl logs ${POD_NAME}
 ```
 
-# Execute commands in the container
+# Execute commands in the container, enter shell
 
 ```
 kubectl exec $POD_NAME -- ls
 kubectl exec $POD_NAME -- pwd
 kubectl exec $POD_NAME -- env
-```
-
-# Create a shell inside the container
-
-```
 kubectl exec -ti $POD_NAME -- bash
 exit
-```
-
-# Use port forwarding to check working pod
-
-```
-kubectl port-forward deployment/hwapp 8000:5000 &
-curl 0.0.0.0:8000
 ```
 
 # Clean-up
 
 ```
 kubectl delete service hwapp
-kubectl delete deployment hwapp
-kubectl get pods
+kubectl delete deployments,replicasets,pods --all
+kubectl get pods,deployments,services
 ```
