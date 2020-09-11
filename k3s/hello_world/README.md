@@ -1,12 +1,16 @@
 # Build docker image
-docker build -t helloworld .
+
+`docker build -t helloworld .`
 
 # Trial run
+
+```
 docker run -d -p 8000:5000 --name hwapp helloworld
 sleep 10
 curl 0.0.0.0:8000
 docker stop hwapp
 docker rm hwapp
+```
 
 # Push to docker hub
 docker tag helloworld trausch/helloworld
