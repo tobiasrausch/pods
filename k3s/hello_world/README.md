@@ -27,6 +27,7 @@ kubectl get nodes
 kubectl create deployment hwapp --image=trausch/helloworld
 kubectl get deployments
 kubectl describe deployments hwapp
+sleep 10
 kubectl expose deployments/hwapp --type="NodePort" --port 5000
 kubectl get services
 export NODE_PORT=$(kubectl get services/hwapp -o json | jq ".spec.ports[0].nodePort")
