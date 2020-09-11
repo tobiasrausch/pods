@@ -50,6 +50,20 @@ echo ${POD_NAME}
 kubectl logs ${POD_NAME}
 ```
 
+# Execute commands in the container
+
+```
+kubectl exec $POD_NAME -- ls
+kubectl exec $POD_NAME -- pwd
+kubectl exec $POD_NAME -- env
+```
+
+# Create a shell inside the container
+
+```
+kubectl exec -ti $POD_NAME -- bash
+exit
+```
 
 # Use port forwarding to check working pod
 
