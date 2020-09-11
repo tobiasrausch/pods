@@ -29,7 +29,7 @@ kubectl get nodes
 # Deploy pod
 
 ```
-kubectl apply -f deployment.yaml 
+kubectl create deployment hwapp --image=trausch/helloworld
 kubectl get deployments
 kubectl describe deployments hwapp
 ```
@@ -37,7 +37,7 @@ kubectl describe deployments hwapp
 # Deploy service
 
 ```
-kubectl apply -f service.yaml
+kubectl create service nodeport hwapp --tcp=5000:5000
 kubectl get services
 ```
 
