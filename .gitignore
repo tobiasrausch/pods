@@ -1,4 +1,6 @@
+*~
 cloud-config.yaml
+k3s.yaml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
