@@ -45,7 +45,7 @@ kubectl get nodes
 
 # Launch & delete nginx for testing
 kubectl create deploy nginx --image=nginx
-kubectl create svc nodeport nginx --tcp=30001:80 --node-port=30001
+sleep 10 && kubectl create svc nodeport nginx --tcp=30001:80 --node-port=30001
 sleep 10 && curl http://${IP}:30001
 kubectl delete svc nginx
 kubectl delete deploy nginx

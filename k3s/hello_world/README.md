@@ -48,6 +48,17 @@ kubectl exec -ti $POD_NAME -- bash
 exit
 ```
 
+# Scale a deployment (more pods)
+
+```
+kubectl get rs
+kubectl scale deployments/hwapp --replicas=4
+kubectl get rs
+kubectl get deployments
+kubectl get pods -o wide
+```
+
+
 # Clean-up
 
 ```
