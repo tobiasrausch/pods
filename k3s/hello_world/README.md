@@ -23,6 +23,7 @@ docker push trausch/helloworld
 
 ```
 export KUBECONFIG=`pwd`/../../k3s.yaml
+kubectl get componentstatus
 kubectl get nodes
 kubectl create deployment hwapp --image=trausch/helloworld
 kubectl get deployments
